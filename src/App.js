@@ -1,24 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
+  constructor() {
+    super()
+
+    this.state = {
+      seconds: 5
+    }
+
+  }
+
   render() {
+
+    const { seconds } = this.state;
+
+    if (seconds === 1) {
+      window.location.href = "https://www.oldchingu.com"
+    } else {
+      setInterval(() => {
+        this.setState({
+          seconds: seconds - 1,
+        })
+      }, 1 * 1000);
+    }
+
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            Loading Old Chingu
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <p>
+            { seconds }
+          </p>
         </header>
       </div>
     );
