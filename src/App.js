@@ -1,41 +1,30 @@
 import React, { Component } from 'react';
 import './App.css';
+import Gallery from 'react-grid-gallery';
+
+function importAll(r) {
+  return r.keys().map(r);
+}
+
+const images = importAll(require.context('./pics', false, /\.(png|jpe?g|svg)$/));
 
 class App extends Component {
-
-  constructor() {
-    super()
-
-    this.state = {
-      seconds: 5
-    }
-
-  }
-
   render() {
-
-    const { seconds } = this.state;
-
-    if (seconds === 1) {
-      window.location.href = "https://www.oldchingu.com"
-    } else {
-      setInterval(() => {
-        this.setState({
-          seconds: seconds - 1,
-        })
-      }, 1 * 1000);
-    }
+    const pics = images.map((image) => {
+      return {
+        src: image,
+        thumbnail: image,
+        isSelected: false,
+      }
+    })
 
     return (
       <div className="App">
-        <header className="App-header">
-          <p>
-            Loading Old Chingu
-          </p>
-          <p>
-            { seconds }
-          </p>
-        </header>
+        <Gallery
+          images={pics}
+          enableLightbox={false}
+          enableImageSelection={false}
+        />
       </div>
     );
   }
