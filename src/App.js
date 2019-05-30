@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
-class App extends Component {
+class InstaFollowers extends Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -31,15 +33,13 @@ class App extends Component {
   }
 
   render() {
-
     const { followers, loadingFollowers } = this.state;
-
     const instagram = loadingFollowers ? <h1>Loading instagram followers</h1> : <h1>Instagram followers: { followers }</h1>;
 
     return (
-      <div className="App">
+      <div>
         { instagram }
-        <form name="contact" method="POST" data-netlify="true" action="/">
+        <form name="contact" method="POST" data-netlify="true" action="/success">
           <p>
             <label>Your Name: <input type="text" name="name" /></label>   
           </p>
@@ -54,6 +54,32 @@ class App extends Component {
           </p>
         </form>
       </div>
+    )
+  }
+}
+
+
+class SuccessPage extends Component {
+  render () {
+    return (
+      <div>
+        <h1>thanks bro</h1>
+        <Link to="/">Back</Link>
+      </div>
+    )
+  }
+}
+
+
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <Route exact path="/" component={InstaFollowers} />
+          <Route exact path="/success" component={SuccessPage} />
+        </div>
+      </Router>
     )
 
   }
