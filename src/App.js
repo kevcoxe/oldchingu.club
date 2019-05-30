@@ -24,13 +24,18 @@ class ContactForm extends React.Component {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({ "form-name": "contact", ...this.state })
     })
-      .then(() => alert("Success!"))
+      .then(() => this.successFormReset())
       .catch(error => alert(error));
 
     e.preventDefault();
   };
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
+
+  successFormReset () {
+    alert("Thank you for your submission");
+    this.setState({ name: "", email: "", message: "" });
+  }
 
   render() {
     const { name, email, message } = this.state;
