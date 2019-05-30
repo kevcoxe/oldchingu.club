@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 
 
 class App extends Component {
@@ -16,21 +17,17 @@ class App extends Component {
   }
 
   getFollerCount() {
-    const that = this;
-    var url = "https://www.instagram.com/oldchingu";
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.onload = function () {
-        if (xhr.status === 200 && xhr.responseText.indexOf(("meta property=\"og:description\" content=\"")) !== -1) {
-            var followers = xhr.responseText.split("meta property=\"og:description\" content=\"")[1].split("Followers")[0];
-            console.log("followers:", followers);
-            that.setState({
-              followers: followers,
-              loadingFollowers: false,
-            })
-        }
-    };
-    xhr.send();
+    axios.get("https://www.instagram.com/oldchingu")
+    .then(res => {
+      if (res.status === 200 && res.data.indexOf(("meta property=\"og:description\" content=\"")) !== -1) {
+        var followers = res.data.split("meta property=\"og:description\" content=\"")[1].split("Followers")[0];
+        console.log("followers:", followers);
+        this.setState({
+          followers: followers,
+          loadingFollowers: false,
+        })
+      }
+    })
   }
 
   render() {
@@ -42,6 +39,17 @@ class App extends Component {
     return (
       <div className="App">
         { instagram }
+        <form name="contact" netlify>
+          <p>
+            <label>Name <input type="text" name="name" /></label>
+          </p>
+          <p>
+            <label>Email <input type="email" name="email" /></label>
+          </p>
+          <p>
+            <button type="submit">Send</button>
+          </p>
+        </form>
       </div>
     )
 
