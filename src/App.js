@@ -120,6 +120,11 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
+        <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+          <input type="text" name="name" />
+          <input type="email" name="email" />
+          <textarea name="message"></textarea>
+        </form>
           <Route exact path="/" component={InstaFollowers} />
           <Route exact path="/success" component={SuccessPage} />
         </div>
