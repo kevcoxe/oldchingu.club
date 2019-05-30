@@ -39,6 +39,7 @@ class InstaFollowers extends Component {
     return (
       <div>
         { instagram }
+        <Link to="/success">success page</Link>
         <form name="contact" method="POST" data-netlify="true" action="/success">
           <p>
             <label>Your Name: <input type="text" name="name" /></label>   
